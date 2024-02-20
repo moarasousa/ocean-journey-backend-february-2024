@@ -1,0 +1,11 @@
+{
+  "name": "ocean-journey-backend-february-2024",
+  "version": "1.0.0",
+  "description": "Project with NodeJS and Express made for the Samsung Ocean Backend Journey in February 2024.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Moara Sousa",
+  "license": "MIT"
+}
