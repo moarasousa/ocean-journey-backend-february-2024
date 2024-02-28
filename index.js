@@ -55,18 +55,15 @@ async function main() {
   app.use(express.json())
 
   // Create -> [POST] /item
-  app.post('/item', function (req, res) {
+  app.post('/item', async function (req, res) {
     // Extraímos o corpo da requisição
-    const body = req.body
-
-    // Pegamos o nome (string) que foi enviado dentro do corpo 
-    const item = body.nome
+    const item = req.body
 
     // Colocamos o nome dentro da lista de itens
-    lista.push(item)
+   await collection.insertOne(item)
 
     // Enviamos uma resposta de sucesso
-    res.send("Item adicionado com sucesso")
+    res.send(item)
   })
 
   app.listen(3000)
