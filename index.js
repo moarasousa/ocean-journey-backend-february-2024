@@ -1,7 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const { MongoClient, ObjectId } = require('mongodb')
 
-const dbUrl = 'mongodb+srv://moarasousa15:B6eXbbH5UEZUNS3S@cluster0.ec9ishh.mongodb.net'
+const dbUrl = process.env.DATABASE_URL
 const dbName = 'OceanJornadaBackendFev2024'
 
 async function main() {
@@ -28,7 +29,7 @@ async function main() {
   const collection = db.collection('item')
 
 
-  // Read All -> [GET] /item
+  // Read All -> [GET] /items
   app.get('/item', async function (req, res) {
     // Realizamos a operação de find na collection do MongoDB
     const item = await collection.find().toArray()
@@ -59,7 +60,7 @@ async function main() {
     // Extraímos o corpo da requisição
     const item = req.body
 
-    // Colocamos o nome dentro da lista de itens
+    // Colocamos o item dentro da lista de itens
    await collection.insertOne(item)
 
     // Enviamos uma resposta de sucesso
