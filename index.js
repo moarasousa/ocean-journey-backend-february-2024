@@ -30,7 +30,7 @@ async function main() {
 
 
   // Read All -> [GET] /items
-  app.get('/item', async function (req, res) {
+  app.get('/items', async function (req, res) {
     // Realizamos a operação de find na collection do MongoDB
     const item = await collection.find().toArray()
 
@@ -38,53 +38,53 @@ async function main() {
     res.send(item)
   })
 
-  // Read By ID -> [GET] /item/:id
-  app.get('/item/:id', async function (req, res) {
+  // Read By ID -> [GET] /items/:id
+  app.get('/items/:id', async function (req, res) {
     //Acesso o ID no parâmetro de rota
     const id = req.params.id
 
-     // Acesso o item na collection baseado no ID recebido
-     const item = await collection.findOne({
+     // Acesso o items na collection baseado no ID recebido
+     const items = await collection.findOne({
       _id: new ObjectId(id)
     })
 
-    // Envio o item obtido como resposta HTTP
-    res.send(item)
+    // Envio o items obtido como resposta HTTP
+    res.send(items)
   })
 
   // Sinalizamos que o corpo da requisição está em JSON
   app.use(express.json())
 
-  // Create -> [POST] /item
-  app.post('/item', async function (req, res) {
+  // Create -> [POST] /items
+  app.post('/items', async function (req, res) {
     // Extraímos o corpo da requisição
-    const item = req.body
+    const items = req.body
 
     // Colocamos o item dentro da lista de itens
-   await collection.insertOne(item)
+   await collection.insertOne(items)
 
     // Enviamos uma resposta de sucesso
-    res.send(item)
+    res.send(items)
   })
 
-  app.put('/item/:id', async function (req, res){
-
+  // Uptade -> [PUT] /items/:id
+  app.put('/items/:id', async function (req, res){
     // Pegamos o ID recebido pela rota
     const id = req.params.id
 
-    // Pegamos o novo item do corpo da requisição
-    const novoItem = req.body
+    // Pegamos o novo items do corpo da requisição
+    const novoItems = req.body
 
     //Atualizamos o documento na collection
     collection.updateOne(
       { _id: new ObjectId(id)},
-      { $set: novoItem}
+      { $set: novoItems}
       )
 
-    res.send('Item atualizado com sucesso')})
+    res.send('Items atualizado com sucesso')})
 
-    // Delete -> [DELETE] /item/:id
-    app.delete('/item/:id', async function (req, res){
+    // Delete -> [DELETE] /items/:id
+    app.delete('/items/:id', async function (req, res){
 
       // Pegamos o ID da rota
       const id = req.params.id
