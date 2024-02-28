@@ -66,6 +66,22 @@ async function main() {
     res.send(item)
   })
 
+  app.put('/item/:id', async function (req, res){
+
+    // Pegamos o ID recebido pela rota
+    const id = req.params.id
+
+    // Pegamos o novo item do corpo da requisição
+    const novoItem = req.body
+
+    //Atualizamos o documento na collection
+    collection.updateOne(
+      { _id: new ObjectId(id)},
+      { $set: novoItem}
+      )
+
+    res.send('Item atualizado com sucesso')})
+
   app.listen(3000)
 }
 
